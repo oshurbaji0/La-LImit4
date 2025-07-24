@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Place - مشروع المخبز البريطاني العصري</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* استيراد الخطوط العربية والإنجليزية لتحسين الجمالية والقراءة */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+Arabic:wght@300;400;600;700;800;900&display=swap');
+        body {
+            font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+            background-color: #f0f2f5; /* خلفية فاتحة وناعمة */
+            color: #333;
+            line-height: 1.8; /* زيادة تباعد الأسطر لراحة القراءة */
+            overflow-x: hidden; /* منع التمرير الأفقي */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* قسم الرأس (Hero Section) - تصميم أكثر ديناميكية */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://placehold.co/1920x600/34495e/ffffff?text=Modern+Bakery+Damascus') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed; /* تأثير Parallax */
+            color: white;
+            padding: 10rem 2rem; /* زيادة المساحة الداخلية */
+            text-align: center;
+            border-bottom-left-radius: 60px; /* زوايا مستديرة أكبر */
+            border-bottom-right-radius: 60px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* ظل أعمق */
+            position: relative;
+            overflow: hidden; /* لإخفاء أي عناصر تتجاوز الحدود */
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(52, 73, 94, 0.2); /* طبقة شفافة إضافية */
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero-section h1 {
+            font-size: 5rem; /* حجم خط أكبر */
+            font-weight: 900; /* وزن خط أثقل */
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
+            animation: fadeInScale 1.5s ease-out; /* تأثير ظهور مع تكبير */
+        }
+        .hero-section p {
+            font-size: 2.2rem; /* حجم خط أكبر */
+            font-weight: 400; /* وزن خط عادي */
+            opacity: 0.95;
+            max-width: 900px;
+            margin: 0 auto;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            animation: fadeInSlideUp 1.8s ease-out forwards; /* تأثير ظهور مع انزلاق لأعلى */
+            animation-delay: 0.5s;
+            opacity: 0; /* مخفي في البداية */
+        }
+
+        /* شريط التنقل الثابت - تصميم أيقوني وجذاب */
+        nav {
+            background-color: #34495e; /* أزرق-رمادي داكن لشريط التنقل */
+            padding: 1rem 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px); /* تأثير ضبابي أقوى */
+            background-color: rgba(52, 73, 94, 0.95); /* خلفية شبه شفافة */
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            transition: transform 0.3s ease-in-out; /* إضافة انتقال لحركة الاختفاء/الظهور */
+        }
+        nav.nav-hidden {
+            transform: translateY(-100%); /* إخفاء الشريط بتحريكه لأعلى */
+        }
+        nav .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem; /* مسافة بين الروابط */
+        }
+        nav a {
+            padding: 0.9rem 1.8rem;
+            margin: 0; /* إزالة الهامش الجانبي */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700; /* وزن خط أثقل */
+            color: #ecf0f1; /* لون فاتح للنص */
+            border-radius: 12px; /* زوايا مستديرة */
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #2980b9; /* أزرق عند التمرير */
+            transform: translateY(-3px); /* رفع خفيف عند التمرير */
+            box-shadow: 0 8px 20px rgba(41, 128, 185, 0.4);
+        }
+        nav a svg {
+            width: 22px; /* حجم أيقونة أكبر */
+            height: 22px;
+            color: #e67e22; /* لون أيقونة برتقالي مميز */
+            transition: color 0.3s ease;
+        }
+        nav a:hover svg {
+            color: white; /* لون أبيض للأيقونة عند التمرير */
+        }
+        .nav-link.active {
+            background-color: #e67e22; /* لون برتقالي مميز للرابط النشط */
+            color: white;
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.5);
+            transform: translateY(-2px);
+        }
+        .nav-link.active svg {
+            color: white;
+        }
+
+        /* تصميم عنوان القسم الرئيسي - أيقونات وعلامات مميزة */
+        .section-title {
+            font-size: 3rem; /* حجم خط أكبر */
+            font-weight: 900; /* وزن خط أثقل */
+            color: #2c3e50; /* أزرق داكن احترافي */
+            margin-bottom: 3rem; /* مسافة سفلية أكبر */
+            text-align: center;
+            position: relative;
+            padding-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem; /* مسافة أكبر بين النص والأيقونة */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px; /* خط سفلي أطول */
+            height: 6px; /* خط سفلي أسمك */
+            background-color: #e67e22; /* لمسة برتقالية مميزة */
+            border-radius: 4px;
+        }
+        .section-title svg {
+            color: #3498db; /* أزرق فاتح للأيقونات */
+            width: 50px; /* حجم أيقونة أكبر */
+            height: 50px;
+        }
+
+        /* تصميم البطاقات - ظل وتأثيرات محسنة */
+        .card {
+            background-color: #ffffff;
+            border-radius: 20px; /* زوايا مستديرة أكبر */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); /* ظل أعمق */
+            padding: 2.5rem; /* مساحة داخلية أكبر */
+            margin-bottom: 2.5rem; /* مسافة سفلية أكبر */
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            border: 1px solid #dcdcdc; /* حدود خفيفة */
+        }
+        .card:hover {
+            transform: translateY(-10px); /* رفع أكبر عند التمرير */
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-size: 1.8rem; /* حجم خط أكبر */
+            font-weight: 800; /* وزن خط أثقل */
+            color: #34495e; /* أزرق-رمادي متوسط */
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #ecf0f1; /* خط سفلي أسمك */
+            padding-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .card-title svg {
+            color: #e67e22; /* أيقونات عناوين البطاقات باللون البرتقالي */
+            width: 28px;
+            height: 28px;
+        }
+
+        /* تصميم عناصر المواقع المحتملة */
+        .location-card-item {
+            background-color: #fbfbfb;
+            border-radius: 15px; /* زوايا مستديرة أكبر */
+            padding: 1.5rem;
+            border: 1px solid #e9e9e9;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            transition: all 0.3s ease;
+        }
+        .location-card-item:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            background-color: #f5f5f5;
+        }
+        .location-card-item h4 {
+            font-weight: 800; /* وزن خط أثقل */
+            color: #2980b9; /* أزرق */
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.2rem;
+        }
+        .location-card-item h4 svg {
+            width: 25px;
+            height: 25px;
+        }
+        .location-card-item img {
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* تصميم الجداول - مظهر أكثر احترافية */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 3rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 15px; /* مسافة أكبر بين الصفوف */
+            text-align: right;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        th, td {
+            padding: 1.5rem 1.8rem; /* مساحة داخلية أكبر */
+            vertical-align: top;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background-color: #3498db; /* رأس الجدول أزرق */
+            color: white;
+            font-weight: 800; /* وزن خط أثقل */
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            font-size: 1.1rem;
+        }
+        tr:nth-child(even) {
+            background-color: #f7f9fb; /* تلوين الصفوف بالتناوب */
+        }
+        tr:hover {
+            background-color: #eaf2f8; /* تأثير التمرير على الصفوف */
+        }
+        /* زوايا مستديرة لخلايا الجدول */
+        table th:first-child { border-top-right-radius: 15px; }
+        table th:last-child { border-top-left-radius: 15px; }
+        table tr:last-child td:first-child { border-bottom-right-radius: 15px; }
+        table tr:last-child td:last-child { border-bottom-left-radius: 15px; }
+
+        /* أيقونات القوائم (إيجابيات/سلبيات) - مظهر مخصص */
+        .custom-list {
+            list-style: none; /* إزالة نمط القائمة الافتراضي */
+            padding: 0;
+            margin: 0;
+        }
+        .custom-list .list-item {
+            margin-bottom: 1rem; /* زيادة المسافة بين النقاط */
+            display: flex;
+            align-items: flex-start;
+            font-size: 1rem; /* تعديل حجم الخط */
+            padding-bottom: 0.6rem; /* مسافة داخلية سفلية لكل عنصر */
+            border-bottom: 1px dashed #e5e5e5; /* خط متقطع خفيف للفصل */
+            margin-right: 0; /* إزالة الهامش الأيمن */
+        }
+        .custom-list .list-item:last-child {
+            border-bottom: none; /* إزالة الخط من العنصر الأخير */
+            margin-bottom: 0;
+        }
+        .custom-list .list-item svg {
+            flex-shrink: 0;
+            margin-left: 0.8rem; /* للمحاذاة في RTL */
+            margin-right: 0;
+            width: 22px; /* حجم أيقونة أكبر */
+            height: 22px;
+            position: relative;
+            top: 0.2rem; /* تعديل الموضع الرأسي للأيقونة */
+        }
+        .custom-list .advantage svg { color: #27ae60; } /* أخضر للإيجابيات */
+        .custom-list .disadvantage svg { color: #e74c3c; } /* أحمر للسلبيات */
+
+        /* تحسين تباعد الفقرات داخل البطاقات */
+        .card p {
+            margin-bottom: 1.2rem; /* مسافة سفلية للفقرات */
+            text-align: justify; /* محاذاة النص */
+        }
+        .card p:last-child {
+            margin-bottom: 0; /* إزالة المسافة السفلية من آخر فقرة */
+        }
+
+        /* أنماط خاصة بالصفحات المتعددة - انتقالات سلسة */
+        .page-section {
+            display: none; /* مخفية افتراضياً */
+            animation: slideInFromRight 0.8s ease-out forwards; /* تأثير ظهور مع انزلاق */
+            opacity: 0; /* مخفي في البداية */
+        }
+        .page-section.active {
+            display: block; /* تظهر عند التفعيل */
+            opacity: 1;
+        }
+        /* إعادة تعيين الأنميشن عند التفعيل ليعمل في كل مرة */
+        .page-section.active {
+            animation: none; /* إزالة الأنميشن القديم */
+            animation: slideInFromRight 0.8s ease-out forwards; /* تطبيق الأنميشن الجديد */
+        }
+
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تعديلات للتجاوبية */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 8rem 1rem; /* تقليل البادينج على الأجهزة الصغيرة */
+                border-bottom-left-radius: 40px;
+                border-bottom-right-radius: 40px;
+            }
+            .hero-section h1 {
+                font-size: 3rem;
+            }
+            .hero-section p {
+                font-size: 1.4rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                flex-direction: column;
+                gap: 0.8rem;
+                margin-bottom: 2rem; /* تقليل المسافة السفلية */
+            }
+            .section-title svg {
+                width: 40px;
+                height: 40px;
+            }
+            .card {
+                padding: 1.5rem;
+                border-radius: 15px;
+                margin-bottom: 1.5rem;
+            }
+            .card-title {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+            }
+            .card-title svg {
+                width: 24px;
+                height: 24px;
+            }
+            th, td {
+                padding: 1rem;
+            }
+            nav .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem; /* تقليل المسافة بين الروابط */
+            }
+            nav a {
+                width: 90%; /* جعل الروابط تأخذ عرضاً كاملاً تقريباً */
+                text-align: center;
+                margin-bottom: 0.2rem; /* تقليل المسافة السفلية بين الروابط */
+                padding: 0.7rem 1rem;
+                font-size: 0.95rem;
+                border-radius: 10px;
+            }
+            nav a svg {
+                width: 18px;
+                height: 18px;
+            }
+            .location-card-item {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+            .location-card-item h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+            .location-card-item h4 svg {
+                width: 20px;
+                height: 20px;
+            }
+            .custom-list .list-item {
+                font-size: 0.9rem;
+                margin-bottom: 0.8rem;
+                padding-bottom: 0.4rem;
+            }
+            .custom-list .list-item svg {
+                width: 18px;
+                height: 18px;
+                top: 0.1rem;
+            }
+            table {
+                border-radius: 15px;
+                border-spacing: 0 10px;
+            }
+            th, td {
+                padding: 1rem 1.2rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            .hero-section {
+                padding: 5rem 1rem;
+                border-bottom-left-radius: 30px;
+                border-bottom-right-radius: 30px;
+            }
+            .hero-section h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            .hero-section p {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+            .section-title svg {
+                width: 35px;
+                height: 35px;
+            }
+            .card {
+                padding: 1rem;
+                border-radius: 10px;
+                margin-bottom: 1.5rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+            .card-title svg {
+                width: 20px;
+                height: 20px;
+            }
+            .location-card-item {
+                padding: 0.8rem;
+                border-radius: 10px;
+            }
+            .location-card-item h4 {
+                font-size: 1rem;
+                margin-bottom: 0.6rem;
+            }
+            .location-card-item h4 svg {
+                width: 18px;
+                height: 18px;
+            }
+            .custom-list .list-item {
+                font-size: 0.8rem;
+                margin-bottom: 0.6rem;
+                padding-bottom: 0.3rem;
+            }
+            .custom-list .list-item svg {
+                width: 16px;
+                height: 16px;
+                top: 0.05rem;
+            }
+            th, td {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+            table {
+                border-spacing: 0 8px;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- قسم الرأس (Hero Section) -->
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1 id="main-title">Study Place</h1>
+            <p>تحليل شامل للمواقع، الجمهور المستهدف، والاعتبارات الاستراتيجية لنجاح مشروعكم</p>
+        </div>
+    </header>
+
+    <!-- شريط التنقل الثابت -->
+    <nav id="main-nav">
+        <div class="container">
+            <a href="#" data-page="executive-summary" class="nav-link">
+                <!-- أيقونة SVG للملخص التنفيذي -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                الملخص التنفيذي
+            </a>
+            <a href="#" data-page="market-analysis" class="nav-link">
+                <!-- أيقونة SVG لتحليل السوق -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-area-chart"><path d="M3 3v18h18"/><path d="M7 12v5h12V8l-5 5-4-4Z"/></svg>
+                تحليل السوق والجمهور
+            </a>
+            <a href="#" data-page="potential-locations" class="nav-link">
+                <!-- أيقونة SVG للمواقع المحتملة -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M12 22s-8-4-8-10a8 8 0 0 1 16 0c0 6-8 10-8 10Z"/></svg>
+                المواقع المحتملة
+            </a>
+            <a href="#" data-page="legal-regulatory" class="nav-link">
+                <!-- أيقونة SVG للاعتبارات القانونية -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale"><path d="M21 15V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2Z"/><path d="M7 15v4a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-4"/><path d="M6 9h12"/></svg>
+                الاعتبارات القانونية
+            </a>
+            <a href="#" data-page="tips-recommendations" class="nav-link">
+                <!-- أيقونة SVG لنصائح وتوصيات -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb"><path d="M15 14c.2-1 .7-2 1.5-3.2a9 9 0 1 0-7 7c1.2.8 2.2 1.3 3.2 1.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                نصائح وتوصيات
+            </a>
+        </div>
+    </nav>
+
+    <main class="container py-12">
+        <!-- صفحة الملخص التنفيذي -->
+        <section id="executive-summary" class="page-section active">
+            <h2 class="section-title">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                الملخص التنفيذي
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                        نظرة عامة على المشروع وأهدافه
+                    </h3>
+                    <p class="text-gray-700">يهدف هذا التقرير إلى تقديم دراسة مكانية شاملة لمشروع "Bakery" المقترح إقامته في دمشق. يتصور المشروع تقديم تجربة فريدة ومتميزة تتجاوز المفهوم التقليدي للمخابز، حيث يركز على تقديم مخبوزات وحلويات غريبة وعصرية، بالإضافة إلى تشكيلة واسعة من أنواع الخبز المتنوعة. كما سيتميز المشروع بتقديم وجبات برانش فريدة، مع توفير مكان جلوس مريح وجذاب يعزز من تجربة العملاء الشاملة. يهدف هذا المفهوم إلى تلبية أذواق الشرائح الاجتماعية والاقتصادية العليا في دمشق (A+, A, B)، والتي تبحث عن الجودة العالية، الابتكار، والتميز في المنتجات والخدمات. يتطلب نجاح مثل هذا المشروع فهماً دقيقاً لخصائص الجمهور المستهدف وتوقعاته، بالإضافة إلى اختيار موقع استراتيجي يضمن سهولة الوصول والجاذبية لهذه الفئة من العملاء.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb"><path d="M15 14c.2-1 .7-2 1.5-3.2a9 9 0 1 0-7 7c1.2.8 2.2 1.3 3.2 1.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                        الخلاصة الرئيسية والتوصيات الأولية للمواقع
+                    </h3>
+                    <p class="text-gray-700">بناءً على التحليل الأولي للمناطق الحيوية في دمشق، تبرز عدة مواقع محتملة تتوافق مع طبيعة المشروع وجمهوره المستهدف. تشمل هذه المواقع بشكل أساسي المزة (بفيلاتها الشرقية والغربية وأوتوستراد المزة)، أبو رمانة، الشعلان، الصالحية، وكفرسوسة. هذه المناطق تتميز بوجود كثافة سكانية من الشرائح المستهدفة، وتوفر بيئة تجارية نشطة تدعم المشاريع الراقية. تشير التقديرات الأولية إلى أن المزة وأبو رمانة والشعلان هي الأكثر ملاءمة نظراً لتركيز الطبقات العليا فيها والنشاط التجاري الموجه نحو هذه الفئات. ومع ذلك، يجب التأكيد على أن اختيار الموقع النهائي يتطلب إجراء دراسة جدوى مالية مفصلة لتقييم القدرة على تحمل التكاليف التشغيلية المرتفعة، لا سيما الإيجارات، في هذه المناطق المرموقة.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- صفحة تحليل السوق والجمهور المستهدف -->
+        <section id="market-analysis" class="page-section">
+            <h2 class="section-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-area-chart"><path d="M3 3v18h18"/><path d="M7 12v5h12V8l-5 5-4-4Z"/></svg>
+                تحليل السوق والجمهور المستهدف في دمشق
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trending-up"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                        الوضع الاقتصادي الحالي وتأثيره على القوة الشرائية للشرائح العليا (A+, A, B)
+                    </h3>
+                    <p class="text-gray-700">يشهد الاقتصاد السوري تحديات كبيرة، حيث انخفض سعر صرف الليرة السورية بشكل حاد مقابل الدولار الأميركي، مسجلاً انخفاضاً بنسبة 141% في عام 2023 وحده. وقد أدى هذا التدهور إلى ارتفاع معدلات التضخم في أسعار المستهلكين بنسبة 93% في العام نفسه. هذه العوامل أدت إلى تآكل كبير في القوة الشرائية لمعظم السكان، مما دفع بأكثر من 9.3 ملايين سوري إلى خطر الجوع في عام 2020، وارتفعت نسبة الفقر لتشمل 69% من السكان بحلول عام 2022.</p>
+                    <p class="text-gray-700">على الرغم من هذا التراجع العام في القوة الشرائية، تظل الشرائح الاجتماعية والاقتصادية العليا (A+, A, B) هي الأكثر قدرة على تحمل تكاليف المنتجات والخدمات الفاخرة والمستوردة. هذه الفئات، وإن تأثرت جزئياً بالوضع الاقتصادي، لا تزال تحتفظ بقدرة شرائية كافية للاستهلاك في قطاع المطاعم والمقاهي والمخابز الراقية. يعكس استمرار وجود مراكز تسوق ومطاعم فاخرة في بعض أحياء دمشق قدرة هذه الشرائح على الاستمرار في الإنفاق على تجارب نوعية. لذلك، فإن استهداف هذه الفئات يصبح حاسماً لضمان جدوى المشروع واستدامته.</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        التركيبة السكانية للأحياء الراقية المستهدفة
+                    </h3>
+                    <p class="text-gray-700">تتركز الشرائح الاجتماعية والاقتصادية العليا في دمشق في أحياء معينة تتميز بطابعها السكني الفاخر والخدمات الراقية. من أبرز هذه الأحياء المزة، أبو رمانة، الشعلان، والصالحية، بالإضافة إلى كفرسوسة الحديثة. يبلغ عدد سكان مدينة دمشق وريفها مجتمعين حوالي 4.4 ملايين نسمة وفقاً لإحصاء عام 2010، مع توقعات بوصول عدد سكان دمشق وحدها إلى أكثر من 5.6 ملايين نسمة بحلول عام 2025. على الرغم من أن البيانات التفصيلية حول التركيبة الديموغرافية للشرائح A+, A, B غير متوفرة بشكل مباشر في المصادر، فإن اختيار هذه الأحياء يعتمد على شهرتها التاريخية والحالية كمركز للطبقات الميسورة والأنشطة التجارية الراقية.</p>
+                    <h3 class="card-title mt-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                        الطلب على المخبوزات والحلويات العصرية ووجبات البرانش الفريدة
+                    </h3>
+                    <p class="text-gray-700">في ظل التحديات الاقتصادية، يزداد سعي الشرائح العليا نحو تجارب استهلاكية مميزة تكسر روتين الحياة اليومي. المخبوزات والحلويات العصرية، وأنواع الخبز المتنوعة، ووجبات البرانش الفريدة، تمثل عوامل جذب قوية لهذه الفئة. هذه المنتجات تقدم قيمة مضافة تتجاوز مجرد تلبية الحاجة الأساسية، لتشمل الجودة، الابتكار، والتجربة الحسية. وجود العديد من المطاعم والمقاهي الفاخرة في دمشق القديمة ومناطق أخرى يشير إلى وجود طلب مستمر على الأطعمة والمشروبات الراقية. المشروع المقترح، بطابعه البريطاني العصري، يمكن أن يستفيد من هذا الطلب من خلال تقديم مفهوم جديد ومختلف يلبي تطلعات هذه الشرائح نحو التميز والتفرد.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- صفحة تحليل المواقع المحتملة -->
+        <section id="potential-locations" class="page-section">
+            <h2 class="section-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M12 22s-8-4-8-10a8 8 0 0 1 16 0c0 6-8 10-8 10Z"/></svg>
+                تحليل المواقع المحتملة
+            </h2>
+            <p class="text-center text-gray-600 mb-8">تم تحليل خمسة مواقع رئيسية في دمشق بناءً على ملاءمتها لمشروع المخبز البريطاني العصري الذي يستهدف الشرائح A+, A, B.</p>
+
+            <!-- الموقع: المزة -->
+            <div class="card mb-8">
+                <h3 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M12 22s-8-4-8-10a8 8 0 0 1 16 0c0 6-8 10-8 10Z"/></svg>
+                    1. المزة
+                </h3>
+                <img src="https://placehold.co/600x250/3498db/ffffff?text=Mezzeh+District" alt="صورة لمنطقة المزة" class="w-full h-auto rounded-lg mb-4 shadow-md">
+                <p class="text-gray-700 mb-4">تعد منطقة المزة من أرقى وأكبر أحياء دمشق، وتقع في الجهة الغربية الجنوبية منها. تتميز بتنوعها الكبير، حيث تجمع بين مناطق سكنية فاخرة ومناطق شعبية.</p>
+                <ul class="custom-list text-gray-700 mb-4">
+                    <li class="list-item"><strong>المزة فيلات (الشرقية والغربية):</strong> تعتبر من المناطق السكنية الفاخرة. الفيلات الشرقية أقرب إلى المناطق التجارية وتتميز بإطلالاتها على بساتين الصبار، بينما الفيلات الغربية هي أيضاً منطقة سكنية راقية. تضم المزة فيلات العديد من السفارات، ومواقع إدارية وعسكرية. كما تحتوي على كليات جامعية تابعة لجامعة دمشق مثل الآداب والطب والصيدلة.</li>
+                    <li class="list-item"><strong>المزة أوتوستراد:</strong> منطقة سكنية وتجارية حيوية تمتد على جانبي الطريق الرئيسي الذي يربط المزة بمناطق دمشق الأخرى، وتضم مؤسسات حكومية ومحال تجارية.</li>
+                    <li class="list-item"><strong>المزة جبل 86:</strong> جزء من المزة، ذو طابع شعبي أكثر.</li>
+                </ul>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="location-card-item">
+                        <h4 class="text-green-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.16"/><path d="m9 11 3 3L22 4"/></svg>
+                            الإيجابيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>كثافة الجمهور المستهدف: المزة فيلات هي موطن للعديد من الأسر ذات الدخل المرتفع والطبقة الدبلوماسية، مما يوفر قاعدة عملاء مثالية للمشروع.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>الحيوية التجارية: تضم المنطقة مراكز تجارية ومرافق حكومية وفنادق. وجود سيتي مول في المزة يعزز من جاذبيتها التجارية نوعا ما ويوفر حركة زوار جيدة.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>سهولة الوصول: يمر بها الطريق الدولي الذي يربط دمشق بلبنان، مما يسهل الوصول إليها.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>البيئة التنافسية: وجود مطاعم ومقاهي فاخرة يشير إلى سوق قائم للمشاريع الراقية.</li>
+                        </ul>
+                    </div>
+                    <div class="location-card-item">
+                        <h4 class="text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                            السلبيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>ارتفاع تكاليف الإيجار: الإيجارات في المزة، خاصة في مناطقها الراقية مثل الفيلات أو الأوتوستراد، تكون مرتفعة جداً. على سبيل المثال، يمكن أن يصل إيجار محل تجاري في أوتوستراد المزة إلى 18,000 دولار سنوياً.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>الازدحام المروري: نظراً لحيويتها، يمكن أن تعاني المزة من ازدحام مروري في بعض الاوقات، مما قد يؤثر على تجربة العملاء ووصولهم.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>الاعتبارات الأمنية: وجود مواقع سياسية وإدارية وعسكرية، بما في ذلك السفارات، قد يجعلها هدفاً لبعض الضربات الجوية، كما حدث في الماضي. هذا قد يثير قلق بعض المستثمرين أو العملاء.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الموقع: أبو رمانة -->
+            <div class="card mb-8">
+                <h3 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M12 22s-8-4-8-10a8 8 0 0 1 16 0c0 6-8 10-8 10Z"/></svg>
+                    2. أبو رمانة
+                </h3>
+                <img src="https://placehold.co/600x250/27ae60/ffffff?text=Abu+Rummaneh+District" alt="صورة لحي أبو رمانة" class="w-full h-auto rounded-lg mb-4 shadow-md">
+                <p class="text-gray-700 mb-4">يعد حي أبو رمانة من أبرز أحياء الطبقة الراقية في قلب دمشق. يشتهر بوجود عدد من السفارات والمكاتب والمباني والفلل السكنية الراقية.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="location-card-item">
+                        <h4 class="text-green-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.16"/><path d="m9 11 3 3L22 4"/></svg>
+                            الإيجابيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>الجمهور المستهدف: يقطنها عدد كبير من الشرائح العليا، مما يضمن وجود قاعدة عملاء قوية.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>مركز للمطاعم والمقاهي الراقية: يضم الحي عدداً من المقاهي والمطاعم الشهيرة مثل Chaplin, Cali, Jazeel, Doors, Martinez, Maranello Cafe. هذا يدل على وجود بيئة مناسبة لمشروع راقٍ.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>الموقع الاستراتيجي: يقع في قلب دمشق ويربط بين منطقتي المهاجرين والصالحية.</li>
+                        </ul>
+                    </div>
+                    <div class="location-card-item">
+                        <h4 class="text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                            السلبيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>ارتفاع تكاليف الإيجار: تعتبر تكاليف الإيجار في أبو رمانة من الأعلى في دمشق. على سبيل المثال، محل تجاري بمساحة 27 متراً مربعاً يمكن أن يصل إيجاره إلى 600 دولار أمريكي شهرياً.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>المنافسة الشديدة: نظراً لكونه مركزاً للمطاعم والمقاهي، قد يواجه المشروع منافسة عالية من المؤسسات القائمة.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>محدودية المساحات الكبيرة: قد يكون من الصعب العثور على مساحات تجارية كبيرة ومناسبة لمخبز مع قسم للجلوس والبرانش في هذا الحي المكتظ.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الموقع: الشعلان -->
+            <div class="card mb-8">
+                <h3 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M12 22s-8-4-8-10a8 8 0 0 1 16 0c0 6-8 10-8 10Z"/></svg>
+                    3. الشعلان
+                </h3>
+                <img src="https://placehold.co/600x250/e67e22/ffffff?text=Al-Shaalan+District" alt="صورة لحي الشعلان" class="w-full h-auto rounded-lg mb-4 shadow-md">
+                <p class="text-gray-700 mb-4">يقع حي الشعلان غربي جادة الصالحية، ويتوسط المدينة، ويتفرع من أهم شارعين وهما الحمراء وأبو رمانة.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="location-card-item">
+                        <h4 class="text-green-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.16"/><path d="m9 11 3 3L22 4"/></svg>
+                            الإيجابيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>مركز تجاري حيوي: تحول الحي إلى سوق كبير ومشهور، خاصة بسوق "التنابل" أو "الهوانم" الذي يقدم خضروات وفواكه ومنتجات جاهزة للطبخ بجودة عالية، مما يجذب ذوي الدخل العالي. هذا يشير إلى وجود جمهور مستعد للإنفاق على المنتجات المميزة.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>موقع مركزي: يتوسط المدينة ويسهل الوصول إليه من عدة مناطق حيوية.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>حركة قدم عالية: نظراً لكونه سوقاً تجارياً، يتمتع بحركة قدم كبيرة من المتسوقين، بما في ذلك الشرائح المستهدفة.</li>
+                        </ul>
+                    </div>
+                    <div class="location-card-item">
+                        <h4 class="text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                            السلبيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>ارتفاع تكاليف الإيجار: إيجار محل تجاري بمساحة 90 متراً مربعاً على طابقين في الشعلان يمكن أن يصل إلى 37,500 دولار سنوياً.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>تحديات لوجستية: الازدحام المروري وصعوبة توفر مواقف السيارات قد تكون تحدياً للعملاء والتوريد.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>طابع تقليدي: على الرغم من حداثة بعض متاجره، قد يكون الطابع العام لبعض أجزاء الشعلان تقليدياً أكثر مقارنة بالمزة الحديثة.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الموقع: الصالحية -->
+            <div class="card mb-8">
+                <h3 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M12 22s-8-4-8-10a8 8 0 0 1 16 0c0 6-8 10-8 10Z"/></svg>
+                    4. الصالحية
+                </h3>
+                <img src="https://placehold.co/600x250/f1c40f/ffffff?text=Al-Salihiyah+District" alt="صورة لشارع الصالحية" class="w-full h-auto rounded-lg mb-4 shadow-md">
+                <p class="text-gray-700 mb-4">شارع الصالحية هو أحد شوارع دمشق الحيوية، يمتد من ساحة يوسف العظمة إلى ساحة عرنوس، ويشتهر بمحلاته الراقية ودور السينما. يعتبر حي الصالحية تاريخياً ويعود بناؤه إلى عام 1096 ميلادي.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="location-card-item">
+                        <h4 class="text-green-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.16"/><path d="m9 11 3 3L22 4"/></svg>
+                            الإيجابيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>حيوية تجارية وثقافية: يضم العديد من الفعاليات الثقافية والمطاعم والمباني الحكومية، مثل مبنى البرلمان السوري.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>حركة قدم عالية: الشارع حيوي جداً ويتحول جزء منه إلى ممر للمشاة والمتسوقين فقط، مما يضمن حركة قدم ممتازة.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>جاذبية تاريخية: الطابع التاريخي للحي يمكن أن يضيف قيمة جمالية وتجربة فريدة للمخبز.</li>
+                        </ul>
+                    </div>
+                    <div class="location-card-item">
+                        <h4 class="text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                            السلبيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>ارتفاع تكاليف الإيجار.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>محدودية المساحة: قد يكون من الصعب العثور على مساحة كافية لمخبز مع منطقة جلوس واسعة في شارع تجاري مكتظ.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>صعوبة الوصول بالسيارة: تحويل جزء من الشارع إلى ممر للمشاة قد يجعل الوصول بالسيارة ومواقفها تحدياً للعملاء.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الموقع: كفرسوسة -->
+            <div class="card mb-8">
+                <h3 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M12 22s-8-4-8-10a8 8 0 0 1 16 0c0 6-8 10-8 10Z"/></svg>
+                    5. كفرسوسة
+                </h3>
+                <img src="https://placehold.co/600x250/9b59b6/ffffff?text=Kafr+Sousa+District" alt="صورة لحي كفرسوسة" class="w-full h-auto rounded-lg mb-4 shadow-md">
+                <p class="text-gray-700 mb-4">كفرسوسة هي أحد أحياء دمشق الحديثة بمخططها العمراني وعماراتها وأبراجها السكنية العالية. تبعد عن مركز المدينة حوالي 6-8 كم.</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="location-card-item">
+                        <h4 class="text-green-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.16"/><path d="m9 11 3 3L22 4"/></svg>
+                            الإيجابيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>مراكز تسوق حديثة: تضم شام سيتي سنتر وداماسكينو مول، وهما من أبرز وأحدث المولات في دمشق، ويجذبان الشرائح المستهدفة الباحثة عن تجربة تسوق وترفيه متكاملة.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>كثافة سكانية من الشرائح المستهدفة: يقطنها خليط سوري يقدر بحوالي ربع مليون نسمة، وتتميز بوجود نسبة عالية من التعليم.</li>
+                            <li class="list-item advantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>بنية تحتية حديثة: تتميز بمخطط عمراني حديث وعمارات وأبراج سكنية عالية.</li>
+                        </ul>
+                    </div>
+                    <div class="location-card-item">
+                        <h4 class="text-red-600 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                            السلبيات
+                        </h4>
+                        <ul class="custom-list text-gray-700 text-sm">
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>المنافسة داخل المولات: إذا تم اختيار موقع داخل أحد المولات، فقد يواجه المشروع منافسة مباشرة من المقاهي والمطاعم الأخرى الموجودة هناك.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>تكاليف إيجار مرتفعة في المولات: الإيجارات داخل المراكز التجارية الكبرى تكون عادة مرتفعة جداً. على سبيل المثال، إيجار محل بمساحة 24 متراً مربعاً في تخطيط كفرسوسة يمكن أن يصل إلى 4,000 دولار سنوياً.</li>
+                            <li class="list-item disadvantage"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>البعد النسبي عن مركز المدينة: على الرغم من سهولة الوصول، إلا أنها تبعد قليلاً عن مركز دمشق التاريخي.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-8">
+                <h3 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-git-pull-request-draft"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M18 6V5"/><path d="M18 11v-1"/><path d="M6 9v6"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M12 18h.01"/></svg>
+                    مقارنة المواقع وترتيبها
+                </h3>
+                <p class="text-center text-gray-600 mb-8">لتقديم رؤية واضحة، تم إعداد جدول مقارنة يوضح الإيجابيات والسلبيات الرئيسية لكل موقع، بالإضافة إلى تقديرات الإيجار المتاحة. يجب ملاحظة أن أسعار الإيجار في دمشق يمكن أن تكون متقلبة وتتأثر بشكل كبير بالوضع الاقتصادي وتقلبات سعر الصرف.</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>الموقع</th>
+                                <th>الإيجابيات</th>
+                                <th>السلبيات</th>
+                                <th>تقديرات الإيجار السنوية (دولار أمريكي)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>المزة (فيلات/أوتوستراد)</strong></td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- كثافة عالية للجمهور المستهدف (A+, A, B).</li>
+                                        <li class="list-item">- حيوية تجارية (مولات، فنادق، مؤسسات حكومية).</li>
+                                        <li class="list-item">- سهولة الوصول عبر الطرق الرئيسية.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- إيجارات مرتفعة جداً.</li>
+                                        <li class="list-item">- ازدحام مروري محتمل.</li>
+                                        <li class="list-item">- اعتبارات أمنية (وجود سفارات ومواقع حساسة).</li>
+                                    </ul>
+                                </td>
+                                <td>9,600 - 18,000 دولار أمريكي (للمحلات/العيادات)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>أبو رمانة</strong></td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- تركيز عالٍ للطبقة الراقية.</li>
+                                        <li class="list-item">- منطقة راسخة للمطاعم والمقاهي الفاخرة.</li>
+                                        <li class="list-item">- موقع مركزي ومتميز.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- إيجارات باهظة جداً.</li>
+                                        <li class="list-item">- منافسة شديدة.</li>
+                                        <li class="list-item">- محدودية المساحات الكبيرة.</li>
+                                    </ul>
+                                </td>
+                                <td>7,200 دولار أمريكي (لمحل 27م2) أو أعلى بكثير لمساحات أكبر.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>الشعلان</strong></td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- مركز تجاري حيوي يجذب الشرائح العليا.</li>
+                                        <li class="list-item">- حركة قدم عالية.</li>
+                                        <li class="list-item">- موقع مركزي يربط شوارع حيوية.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- إيجارات مرتفعة.</li>
+                                        <li class="list-item">- تحديات لوجستية (ازدحام، مواقف).</li>
+                                        <li class="list-item">- طابع تجاري أكثر تقليدية في بعض الأجزاء.</li>
+                                    </ul>
+                                </td>
+                                <td>37,500 دولار أمريكي (لمحل 90م2 طابقين)، أو 7,000 دولار أمريكي (لمكتب).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>الصالحية</strong></td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- حيوية تجارية وثقافية عالية.</li>
+                                        <li class="list-item">- حركة قدم ممتازة (جزء للمشاة).</li>
+                                        <li class="list-item">- طابع تاريخي مميز.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- إيجارات متوقعة مرتفعة جداً.</li>
+                                        <li class="list-item">- صعوبة إيجاد مساحات كبيرة.</li>
+                                        <li class="list-item">- تحديات الوصول بالسيارة.</li>
+                                    </ul>
+                                </td>
+                                <td>لا توجد بيانات محددة، ولكن متوقع أن تكون مرتفعة جداً.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>كفرسوسة</strong></td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- بنية تحتية حديثة ومراكز تسوق كبرى.</li>
+                                        <li class="list-item">- كثافة سكانية عالية من الشرائح المستهدفة.</li>
+                                        <li class="list-item">- بيئة عصرية ومتطورة.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="custom-list p-0 m-0">
+                                        <li class="list-item">- منافسة داخل المولات.</li>
+                                        <li class="list-item">- إيجارات مرتفعة ضمن المجمعات التجارية.</li>
+                                        <li class="list-item">- بعد نسبي عن مركز المدينة.</li>
+                                    </ul>
+                                </td>
+                                <td>4,000 دولار أمريكي (لمحل 24م2).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="card-title mt-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-ordered"><line x1="10" x2="18" y1="6" y2="6"/><line x1="10" x2="18" y1="12" y2="12"/><line x1="10" x2="18" y1="18" y2="18"/><path d="M2 6h1c.5 0 1-.5 1-1s-.5-1-1-1H2"/><path d="M3 18v-6h-.5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1H4"/></svg>
+                    الترتيب المقترح للمواقع
+                </h3>
+                <ol class="list-decimal list-inside text-gray-700 space-y-4">
+                    <li>
+                        <strong>المزة (خاصة المزة فيلات أو أوتوستراد المزة):</strong>
+                        <p class="text-sm"><strong>لماذا:</strong> تجمع بين كثافة الجمهور المستهدف، الحيوية التجارية، وسهولة الوصول. وجود المولات والمؤسسات الكبرى يعزز من فرص النجاح. على الرغم من ارتفاع الإيجارات والاعتبارات الأمنية، فإن حجم السوق المستهدف في هذه المنطقة يجعلها الخيار الأول. يمكن للمشروع أن يجد مكاناً في الشوارع التجارية الحيوية أو بالقرب من المجمعات السكنية الراقية.</p>
+                    </li>
+                    <li>
+                        <strong>أبو رمانة:</strong>
+                        <p class="text-sm"><strong>لماذا:</strong> تعتبر مركزاً للطبقة الراقية والمقاهي والمطاعم الفاخرة. وجود جمهور مستعد للإنفاق على تجارب مميزة يجعلها خياراً قوياً. التحدي الرئيسي هو التكلفة الباهظة للإيجار والمنافسة، مما يتطلب تميزاً استثنائياً للمشروع.</p>
+                    </li>
+                    <li>
+                        <strong>الشعلان:</strong>
+                        <p class="text-sm"><strong>لماذا:</strong> منطقة تجارية حيوية جداً وتجذب الشرائح العليا، خاصة مع سوق "التنابل" المميز. حركة القدم العالية يمكن أن تضمن تدفقاً مستمراً للعملاء. التحديات تكمن في الإيجارات المرتفعة واللوجستيات.</p>
+                    </li>
+                    <li>
+                        <strong>كفرسوسة:</strong>
+                        <p class="text-sm"><strong>لماذا:</strong> بيئة عصرية حديثة مع مراكز تسوق كبرى وكثافة سكانية من الشرائح المستهدفة. قد يكون الموقع داخل أحد المولات الكبرى خياراً جذاباً لضمان حركة زوار عالية، ولكن يجب دراسة المنافسة الداخلية وتكاليف الإيجار بعناية.</p>
+                    </li>
+                    <li>
+                        <strong>الصالحية:</strong>
+                        <p class="text-sm"><strong>لماذا:</strong> على الرغم من حيويتها التجارية والتاريخية وحركة القدم الممتازة، فإن صعوبة إيجاد مساحة مناسبة لمفهوم المخبز والبرانش مع منطقة جلوس واسعة، بالإضافة إلى تحديات الوصول بالسيارة، تجعلها خياراً أقل تفضيلاً مقارنة بالمواقع الأخرى.</p>
+                    </li>
+                </ol>
+                <h3 class="card-title mt-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h12a2 2 0 0 0 2-2v-3"/><path d="M2 7h1v2H2"/><path d="M2 15h1v2H2"/></svg>
+                    تحليل التكلفة مقابل الفائدة
+                </h3>
+                <p class="text-gray-700">يجب أن يوازن المستثمر بين تكلفة الإيجار المرتفعة في المناطق المقترحة والفائدة المتوقعة من الوصول إلى الجمهور المستهدف. في حين أن المزة وأبو رمانة والشعلان تقدم أعلى تركيز للعملاء ذوي القوة الشرائية، فإنها تتطلب أيضاً استثماراً أولياً وتشغيلياً كبيراً في الإيجار. قد توفر كفرسوسة خياراً أكثر حداثة من حيث البنية التحتية، ولكنها قد تتطلب جهوداً تسويقية أكبر لجذب العملاء من خارج المولات. يجب أن يحدد المشروع ميزانيته للإيجار بدقة وأن يجري تحليلاً للعائد على الاستثمار لكل موقع محتمل.</p>
+            </div>
+        </section>
+
+        <!-- صفحة الاعتبارات القانونية والتنظيمية -->
+        <section id="legal-regulatory" class="page-section">
+            <h2 class="section-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scale"><path d="M21 15V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2Z"/><path d="M7 15v4a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-4"/><path d="M6 9h12"/></svg>
+                الاعتبارات القانونية والتنظيمية
+            </h2>
+            <div class="card">
+                <h3 class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-check"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 11 2 2 4-4"/></svg>
+                    شروط ترخيص المخابز والمطاعم والمقاهي في سوريا
+                </h3>
+                <p class="text-gray-700 mb-4">يتطلب تأسيس وتشغيل مخبز ومقهى في دمشق الالتزام بمجموعة من القوانين واللوائح المحلية لضمان الامتثال والتشغيل السلس. تخضع المحال التجارية والصناعية، بما في ذلك المطاعم والمقاهي والمخابز، لأحكام القانون المنظم لهذه الأنشطة. للحصول على ترخيص، يتوجب على طالب الخدمة، سواء كان مالك المحل أو وكيل عنه بتوكيل رسمي موثق، اتباع الإجراءات وتقديم المستندات المطلوبة.</p>
+                <h4 class="font-semibold text-lg text-gray-800 mb-2">تشمل المستندات والإجراءات الأساسية ما يلي:</h4>
+                <ul class="custom-list text-gray-700 mb-4">
+                    <li class="list-item">ملء النموذج الخاص بالخدمة.</li>
+                    <li class="list-item">وثائق إثبات الشخصية: صورة عن بطاقة الرقم القومي مع الاطلاع على الأصل.</li>
+                    <li class="list-item">شهادة الخدمة العسكرية: إذا كان عمر طالب الترخيص بين 21 و 30 سنة.</li>
+                    <li class="list-item">إثبات ملكية أو إيجار المحل: صورة عن عقد الإيجار (مع إثبات تاريخه) أو عقد الملكية، مع الاطلاع على الأصل.</li>
+                    <li class="list-item">الرسومات الهندسية: نسخ معتمدة من الرسومات الهندسية للمحل من قبل مهندس نقابي.</li>
+                    <li class="list-item">شهادة الضرائب العقارية: بالقيمة الإيجارية السنوية للمحل.</li>
+                    <li class="list-item">صحيفة الحالة الجنائية: لطالب الترخيص، وإذا كان أجنبياً، يقدم شهادة حسن سيرة وسلوك من سفارة بلاده أو قنصليتها.</li>
+                    <li class="list-item">وثائق الشركات/الهيئات: إذا كان طالب الترخيص هيئة أو شركة، يجب إرفاق صور معتمدة من مستندات تكوينها والأوراق التي تحدد الشخص المسؤول عن تنفيذ أحكام القانون.</li>
+                    <li class="list-item">التأمينات الاجتماعية: إيصال يثبت سداد التأمينات الاجتماعية لصاحب المحل وللعاملين فيه.</li>
+                    <li class="list-item">الشهادات الصحية: لصاحب المحل وللعاملين فيه، خاصة في المخابز حيث يتطلب شهادات صحية له ولإثنين من العاملين معه على الأقل.</li>
+                    <li class="list-item">البطاقة الضريبية: صورة عن البطاقة الضريبية.</li>
+                </ul>
+                <p class="text-sm text-red-600 mb-4"><strong>ملاحظة:</strong> هذه المتطلبات غير كاملة وقد تختلف باختلاف نوعية المشاريع، كما يتطلب تراخيص تجارية إضافية، يمكن شملها بدراسة قانونية للتراخيص عند الطلب.</p>
+                <p class="text-gray-700">بعد تقديم المستندات، تقوم الإدارة الهندسية المختصة بفحصها. عند الموافقة الأولية على النشاط، يتم سداد رسم المعاينة. بعد المعاينة الميدانية، تحدد الإدارة المختصة أي اشتراطات تعديل إن وجدت. يتم إبلاغ الوحدة المحلية عند إتمام الاشتراطات، ثم تتم معاينة للتأكد من التنفيذ قبل تسديد الرسوم النهائية واستلام الرخصة.</p>
+
+                <h3 class="card-title mt-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gavel"><path d="M14.5 12.5 11 16 16 21 19.5 17.5 14.5 12.5Z"/><path d="M10.5 5.5 10 10l-5 5L.5 10.5 5.5 5.5Z"/><path d="M18.5 11.5 12 5 10 7 16.5 13.5Z"/><path d="M16 16 21 21"/></svg>
+                    قانون المحال التجارية
+                </h3>
+                <p class="text-gray-700 mb-4">يسري قانون المحال التجارية على المحال التجارية والصناعية، والمحال العامة المماثلة مثل المطاعم والمقاهي والفنادق. يلغى الترخيص في عدة حالات، منها إخطار المرخص له بوقف العمل، أو إجراء تعديل في المحل دون موافقة الإدارة المختصة، أو مزاولة نشاط مخالف للترخيص، أو إذا أصبح المحل غير قابل للتشغيل أو غير مستوفٍ للشروط، أو في حال وجود خطر داهم على الصحة العامة أو الأمن العام.</p>
+                <p class="text-gray-700 mb-4">يجب أن تكون العقود والتصرفات الواردة على المتجر مكتوبة وتسجل في سجل المتجر لتكون نافذة في حق الغير. كما يجب نشر خلاصة عن العقد أو التصرف في صحيفة يومية تصدر في مكان التسجيل أو في العاصمة. هذا يؤكد على أهمية الشفافية والامتثال القانوني في جميع جوانب تأسيس وتشغيل المشروع.</p>
+                <p class="text-sm text-blue-600 mb-4"><strong>ملحوظة:</strong> يتم الإشراف على الدراسة القانونية بواسطة نخبة من المحامين التجاريين لذكر جميع القوانين التجارية المتعلقة بالمشروع.</p>
+
+                <h3 class="card-title mt-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle"><path d="m21.73 18.73-10-17a2 2 0 0 0-3.46 0l-10 17a2 2 0 0 0 1.73 3.27h20a2 2 0 0 0 1.73-3.27Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                    التحديات المحتملة
+                </h3>
+                <p class="text-gray-700">قد يواجه المستثمر تحديات تتعلق بالبيروقراطية وطول فترة الحصول على التراخيص، بالإضافة إلى احتمال تغير اللوائح والقوانين. لذلك، يُنصح بالاستعانة بمستشار قانوني محلي متخصص في قوانين الأعمال والتراخيص في سوريا لضمان الامتثال الكامل وتجنب أي عقبات قانونية. الالتزام بالضوابط الفنية والنظافة والجودة أمر حيوي لضمان استمرارية الترخيص ونجاح المشروع.</p>
+            </div>
+        </section>
+
+        <!-- صفحة نصائح وتوصيات لنجاح المشروع -->
+        <section id="tips-recommendations" class="page-section">
+            <h2 class="section-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lightbulb"><path d="M15 14c.2-1 .7-2 1.5-3.2a9 9 0 1 0-7 7c1.2.8 2.2 1.3 3.2 1.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+                نصائح وتوصيات لنجاح المشروع
+            </h2>
+            <div class="card">
+                <ul class="custom-list text-gray-700 space-y-4">
+                    <li class="list-item">
+                        <strong>تكييف المفهوم البريطاني مع الذوق المحلي:</strong> على الرغم من أن المفهوم "بريطاني عصري"، يجب أن يتم تكييف بعض النكهات والمكونات لتناسب الذوق السوري، مع الحفاظ على الأصالة والتميز. يمكن تقديم بعض المخبوزات والحلويات البريطانية الكلاسيكية بلمسة عصرية، إلى جانب ابتكار أصناف جديدة تجمع بين الثقافتين. هذا المزيج يمكن أن يخلق نقطة بيع فريدة تجذب قاعدة أوسع من العملاء المستهدفين.
+                    </li>
+                    <li class="list-item">
+                        <strong>التركيز على جودة المنتجات والابتكار:</strong> يجب أن تكون الجودة هي حجر الزاوية في كل منتج يقدمه المخبز. استخدام مكونات عالية الجودة، والالتزام بمعايير النظافة الصارمة، وتقديم وصفات مبتكرة وغير تقليدية هو أمر ضروري. المخبوزات والحلويات "الغريبة والعصرية" تتطلب إبداعاً مستمراً وتجديداً للقائمة للحفاظ على اهتمام العملاء.
+                    </li>
+                    <li class="list-item">
+                        <strong>توفير تجربة عملاء استثنائية:</strong> لا يقتصر المشروع على تقديم الطعام فحسب، بل على توفير تجربة متكاملة. يجب تصميم مكان الجلوس ليكون مريحاً وجذاباً، ويعكس الطابع البريطاني العصري بأناقة. الخدمة يجب أن تكون احترافية وودودة، مع اهتمام بالتفاصيل لضمان رضا العملاء. توفير خدمة عملاء ممتازة يساهم في بناء ولاء العملاء وتشجيعهم على العودة.
+                    </li>
+                    <li class="list-item">
+                        <strong>التسويق الفعال والموجه:</strong> للوصول إلى الشرائح A+, A, B، يجب اعتماد استراتيجيات تسويقية راقية وموجهة. يمكن التركيز على التسويق الرقمي عبر منصات التواصل الاجتماعي التي يرتادها الجمهور المستهدف، والتعاون مع المؤثرين المحليين في مجالات الطعام والترفيه. تنظيم فعاليات خاصة، مثل تذوق المنتجات الجديدة أو ورش عمل صغيرة، يمكن أن يخلق ضجة ويزيد من الوعي بالمشروع.
+                    </li>
+                    <li class="list-item">
+                        <strong>التسعير الاستراتيجي:</strong> يجب تحديد الأسعار بعناية لتعكس جودة المنتجات والتجربة الفاخرة، مع الأخذ في الاعتبار القوة الشرائية للشرائح المستهدفة في ظل الوضع الاقتصادي الحالي. يمكن تقديم خيارات متنوعة في الأسعار، مع التركيز على القيمة المدركة للمنتج. قد يكون تقديم عروض خاصة أو باقات مميزة للبرانش وسيلة لزيادة الجذب.
+                    </li>
+                    <li class="list-item">
+                        <strong>إدارة التكاليف بفعالية:</strong> نظراً لارتفاع تكاليف التشغيل، خاصة الإيجارات في المواقع الراقية، يجب وضع خطة صارمة لإدارة التكاليف. يشمل ذلك التفاوض على شروط الإيجار، والبحث عن موردين موثوقين للمكونات بأسعار تنافسية، وتحسين كفاءة العمليات لتقليل الهدر.
+                    </li>
+                    <li class="list-item">
+                        <strong>بناء فريق عمل مؤهل ومتحمس:</strong> يعتبر فريق العمل أساس نجاح أي مشروع في قطاع الأغذية والمشروبات. يجب توظيف خبراء في صناعة المخبوزات والحلويات، بالإضافة إلى موظفي خدمة عملاء مدربين تدريباً عالياً. الاستثمار في تدريب وتطوير الموظفين يضمن تقديم منتجات وخدمات ذات جودة عالية باستمرار.
+                    </li>
+                    <li class="list-item">
+                        <strong>إجراء دراسة جدوى مالية تفصيلية:</strong> بعد تحديد الموقع المفضل، من الضروري إجراء دراسة جدوى مالية شاملة. يجب أن تتضمن هذه الدراسة تقديرات دقيقة للإيرادات المتوقعة، التكاليف التشغيلية (بما في ذلك الإيجار، الرواتب، المواد الخام، التسويق)، وتحليل نقطة التعادل، والعائد على الاستثمار. هذه الدراسة ستوفر صورة واضحة عن الجدوى المالية للمشروع وتساعد في اتخاذ قرار استثماري مستنير.
+                    </li>
+                    <li class="list-item">
+                        <strong>المرونة والتكيف:</strong> يجب أن يكون المشروع مستعداً للتكيف مع التغيرات في السوق والظروف الاقتصادية. القدرة على تعديل القائمة، استراتيجيات التسعير، أو حتى نموذج العمل عند الضرورة ستكون حاسمة للبقاء والنمو في بيئة دمشق الديناميكية.
+                    </li>
+                    <li class="list-item">
+                        <strong>دراسة المنافسين:</strong> إن تجربة أصناف المنافسين لا تعتبر كافية لدراسة السوق فهناك معايير كثيرة أخرى يجب توفرها مثل: (اسم العلامة التجارية، متوسط الأسعار عند المنافسين، متوسط البيع والدخل لدى المنافسين، حجم الإنتاج، حجم المحلات، أنواع الأصناف ومدى توفرها، ...) وهذه المعايير مهمة جداً لدراسة المشروع وتطويره.
+                    </li>
+                </ul>
+                <p class="text-gray-700 mt-4">من خلال الالتزام بهذه التوصيات، يمكن للمشروع العصري أن يحقق نجاحاً ملحوظاً ويصبح وجهة مفضلة للشرائح العليا في دمشق، مقدماً تجربة طعام فريدة ومتميزة.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 mt-12 rounded-t-3xl">
+        <div class="container text-center text-sm opacity-80">
+            <p>&copy; 2024 LA LIMIT.</p>
+            <p class="mt-2">تم إعداد هذه الدراسة لغرض العرض على المستثمرين.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.getElementById('main-nav');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+            const mainTitle = document.getElementById('main-title');
+
+            let lastScrollTop = 0; // لتخزين آخر موضع تمرير
+            const scrollThreshold = 50; // عتبة التمرير لتجنب الاهتزاز
+
+            // ربط معرفات الصفحات بالعناوين لتحديث العنوان الرئيسي ديناميكياً
+            const pageTitles = {
+                'executive-summary': 'الملخص التنفيذي',
+                'market-analysis': 'تحليل السوق والجمهور المستهدف في دمشق',
+                'potential-locations': 'تحليل المواقع المحتملة',
+                'legal-regulatory': 'الاعتبارات القانونية والتنظيمية',
+                'tips-recommendations': 'نصائح وتوصيات لنجاح المشروع'
+            };
+
+            function showPage(pageId) {
+                // إخفاء جميع الأقسام
+                pageSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                // إظهار القسم المطلوب
+                const activePage = document.getElementById(pageId);
+                if (activePage) {
+                    activePage.classList.add('active');
+                    // تحديث العنوان الرئيسي في الرأس
+                    mainTitle.textContent = pageTitles[pageId] || 'Study Place';
+
+                    // التمرير إلى بداية القسم النشط بدلاً من أعلى الصفحة
+                    // يتم تعديل offset ليتناسب مع ارتفاع شريط التنقل الثابت
+                    const navHeight = nav.offsetHeight; // الحصول على ارتفاع شريط التنقل
+                    const elementPosition = activePage.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - navHeight - 20; // 20px إضافية للتباعد
+
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+
+                // تحديث حالة الرابط النشط في شريط التنقل
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // إضافة مستمعي الأحداث لروابط التنقل
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // منع السلوك الافتراضي للرابط
+                    const pageId = e.target.dataset.page; // الحصول على معرف الصفحة من سمة البيانات
+                    showPage(pageId); // عرض الصفحة المطابقة
+                });
+            });
+
+            // وظيفة التعامل مع التمرير لإخفاء/إظهار شريط التنقل
+            window.addEventListener('scroll', () => {
+                let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+                // إخفاء الشريط عند التمرير لأسفل، وإظهاره عند التمرير لأعلى
+                if (currentScroll > lastScrollTop && currentScroll > nav.offsetHeight + scrollThreshold) {
+                    // التمرير لأسفل
+                    nav.classList.add('nav-hidden');
+                } else if (currentScroll < lastScrollTop - scrollThreshold) {
+                    // التمرير لأعلى
+                    nav.classList.remove('nav-hidden');
+                }
+                lastScrollTop = currentScroll;
+            });
+
+            // عرض الصفحة الأولى (الملخص التنفيذي) افتراضياً عند تحميل الصفحة
+            showPage('executive-summary');
+        });
+    </script>
+</body>
+</html>
